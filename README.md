@@ -101,11 +101,11 @@ docker compose up -d
 #### Client 1 — Web App (Authorization Code Flow)
 
 - Create a new client in Keycloak:
-  - Client type: OpenID Connect
+  - Client type: `OpenID Connect`
   - Client ID: `demo-web-client`
-  - Client authentication: On (confidential client)
-  - Standard flow: On (enables Authorization Code Grant)
-  - Direct access grants: Off
+  - Client authentication: `On` (confidential client)
+  - Standard flow: `On` (enables Authorization Code Grant)
+  - Direct access grants: `Off`
 - Login settings — Valid redirect URIs:
   - `http://localhost:8080/login/oauth2/code/keycloak` (Spring Security default)
   - `http://localhost:8080/*`
@@ -114,41 +114,65 @@ docker compose up -d
 #### Client 2 — Service API (Client Credentials Flow)
 
 - Create a client with these settings:
-  - Client type: OpenID Connect
+  - Client type: `OpenID Connect`
   - Client ID: `demo-api-client`
-  - Client authentication: On
-  - Standard flow: Off
-  - Direct access grants: Off
-  - Service accounts roles: On (enables Client Credentials Grant)
+  - Client authentication: `On`
+  - Standard flow: `Off`
+  - Direct access grants: `Off`
+  - Service accounts roles: `On` (enables Client Credentials Grant)
 - Save and copy the Client Secret.
 
 #### Client 3 — Backend Admin (Admin API Access)
 
 - Create a client with these settings:
-  - Client type: OpenID Connect
+  - Client type: `OpenID Connect`
   - Client ID: `demo-admin-client`
-  - Client authentication: On
-  - Standard flow: Off
-  - Direct access grants: Off
-  - Service accounts roles: On
-- Save the client.
-- In the client settings, go to `Service Account Roles` and assign the `manage-users` role (and `view-users` if needed).
-- Copy the Client Secret for server-side use.
+  - Client authentication: `On`
+  - Standard flow: `Off`
+  - Direct access grants: `Off`
+  - Service accounts roles: `On`
+  - Save the client.
+    - In the client settings, go to `Service Account Roles` and assign the `manage-users` role (and `view-users` if needed).
+    - Copy the Client Secret for server-side use.
 
 ## Integrating social logins (Keycloak as an identity broker)
 
 ### Google
 
-1. In Google Cloud Console, go to APIs & Services → Credentials and create an OAuth client ID (Web application).
-2. Add Keycloak's broker callback URL to the Authorized redirect URIs. The callback URL format appears on the Keycloak "Add Google" provider page (example: `http://localhost:9090/realms/spring-boot-app/broker/google/endpoint`).
-3. Copy the Client ID and Client Secret from Google and paste them into the Keycloak Google identity provider configuration.
+Step 1: Google Cloud Console
+
+1. Navigate to the Google Cloud Console (console.cloud.google.com).
+2. Go to **APIs & Services** > **Credentials**.
+3. Configure the **OAuth consent screen** if not already done.
+4. Click **Create Credentials** > **OAuth client ID**.
+5. Select **Web application** as the type.
+6. In **Authorized redirect URIs**, add the Keycloak broker callback URL. This URI is found on the Keycloak "Add Google" provider page and follows the format: `http://localhost:9090/realms/spring-boot-app/broker/google/endpoint`.
+7. Click **Create** and copy the **Client ID** and **Client Secret**.
+
+Step 2: Keycloak Admin Console
+
+1. In the `oauth2-demo` realm, navigate to **Identity Providers**.
+2. Select **Google** from the list of social providers.
+3. Paste the **Client ID** and **Client Secret** obtained from Google.
+4. Click **Save**.
 
 ### GitHub
 
-1. In GitHub Developer Settings, register a new OAuth App with:
-   - Homepage URL: `http://localhost:8080`
-   - Authorization callback URL: Keycloak's GitHub broker callback (example: `http://localhost:9090/realms/spring-boot-app/broker/github/endpoint`)
-2. Copy the Client ID and Client Secret from GitHub and add them to the Keycloak GitHub identity provider configuration.
+Step 1: GitHub Developer Settings
+
+1. Navigate to GitHub **Settings** > **Developer settings** > **OAuth Apps**.
+2. Click **New OAuth App**.
+3. Set **Homepage URL** to `http://localhost:8080`.
+4. Set **Authorization callback URL** to the Keycloak broker callback: `http://localhost:9090/realms/spring-boot-app/broker/github/endpoint`.
+5. Click **Register application**.
+6. Generate a new **Client Secret** and copy both the **Client ID** and the new **Client Secret**.
+
+Step 2: Keycloak Admin Console
+
+1. Navigate to **Identity Providers** in the Keycloak realm.
+2. Select **GitHub** from the list.
+3. Paste the **Client ID** and **Client Secret** obtained from GitHub.
+4. Click **Save**.
 
 ## Spring Boot project setup
 
