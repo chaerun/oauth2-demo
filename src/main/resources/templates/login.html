@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+  <title layout:fragment="title" th:text="${@environment.getProperty('spring.application.name')}">Login</title>
+  <th:block layout:fragment="styles"></th:block>
+</head>
+<body>
+  <div layout:fragment="content">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center">Login</h2>
+        <p th:if="${param.error}" class="alert alert-danger">Login error. Please try again.</p>
+        <p th:if="${param.logout}" class="alert alert-success">You have been logged out.</p>
+        <p th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></p>
+        
+        <div class="d-grid gap-2">
+          <a th:href="@{/oauth2/authorization/keycloak}" class="btn btn-primary btn-lg">Login with Keycloak</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

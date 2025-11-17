@@ -25,7 +25,7 @@ spring:
 keycloak: # Custom properties for Client 3: Admin API
   admin:
     server-url: http://localhost:9090
-    realm: master  # Authenticate to the master realm
+    realm: ${spring.application.name}  # Authenticate to app realm
     target-realm: ${spring.application.name} # Manage users in our app realm
     client-id: demo-admin-client
     client-secret: 6WROqpEYBUq125U3Q1NVQAYgKVzTrIzm

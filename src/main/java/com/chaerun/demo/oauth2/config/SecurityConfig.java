@@ -52,6 +52,8 @@ public class SecurityConfig {
             .anyRequest()
             .authenticated() // All other paths require login
         )
+        .csrf(csrf -> csrf
+            .ignoringRequestMatchers("/register")) // Disable CSRF for registration endpoint
         .oauth2Login(oauth2 -> oauth2.loginPage("/login")) // Point to the custom login page
         .logout(logout -> logout
             .logoutSuccessUrl("/") // Redirect to home page on logout
