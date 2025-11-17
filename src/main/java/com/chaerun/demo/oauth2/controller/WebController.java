@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 
   @GetMapping("/")
-  public String getHomePage() {
+  public String home() {
     return "index";
   }
 
   @GetMapping("/profile")
-  public String getProfilePage(Model model, @AuthenticationPrincipal OidcUser principal) {
+  public String profile(Model model, @AuthenticationPrincipal OidcUser principal) {
     if (principal != null) {
       model.addAttribute("username", principal.getPreferredUsername());
       model.addAttribute("email", principal.getEmail());
@@ -25,12 +25,12 @@ public class WebController {
   }
 
   @GetMapping("/login")
-  public String getLoginPage() {
+  public String login() {
     return "login";
   }
 
   @GetMapping("/register")
-  public String getRegisterPage() {
+  public String register() {
     return "register";
   }
 }

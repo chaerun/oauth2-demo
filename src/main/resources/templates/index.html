@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+  <title layout:fragment="title" th:text="${@environment.getProperty('spring.application.name')}">Home</title>
+  <th:block layout:fragment="styles"></th:block>
+</head>
+<body>
+  <section layout:fragment="content">
+    <h1 class="display-5">Home</h1>
+    <h2 class="h5 text-muted">Welcome to the OAuth 2.0 Demo Application</h2>
+    <p>This is the public home page. Anyone can see this.</p>
+  </section>
+  <th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

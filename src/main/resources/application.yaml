@@ -19,6 +19,9 @@ spring:
         jwt: # Configuration for Client 2: API (Resource Server)
           issuer-uri: http://localhost:9090/realms/${spring.application.name}
 
+  thymeleaf:
+    cache: false # Disable Thymeleaf caching for development
+
 keycloak: # Custom properties for Client 3: Admin API
   admin:
     server-url: http://localhost:9090
