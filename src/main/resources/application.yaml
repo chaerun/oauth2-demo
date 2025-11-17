@@ -26,4 +26,7 @@ keycloak: # Custom properties for Client 3: Admin API
     target-realm: ${spring.application.name} # Manage users in our app realm
     client-id: demo-admin-client
     client-secret: 6WROqpEYBUq125U3Q1NVQAYgKVzTrIzm
-    
+
+logging:
+  level:
+    web: DEBUG

@@ -5,6 +5,8 @@ services:
     image: postgres:latest
     container_name: keycloak-db
     restart: unless-stopped
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
