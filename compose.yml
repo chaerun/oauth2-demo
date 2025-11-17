@@ -18,7 +18,9 @@ services:
     image: quay.io/keycloak/keycloak:26.0.7
     container_name: keycloak-app
     restart: unless-stopped
-    command: start-dev
+    command:
+      - start-dev
+      - --import-realm
     ports:
       - "9090:8080"
     environment:
@@ -31,6 +33,7 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
     volumes:
+      - ./oauth2-demo-realm.json:/opt/keycloak/data/import/oauth2-demo-realm.json
       - keycloak-data:/opt/keycloak/data
     depends_on:
       - postgres

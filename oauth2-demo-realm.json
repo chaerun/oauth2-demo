@@ -1,0 +1,71 @@
+{
+  "realm": "oauth2-demo",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "ROLE_USER"
+      },
+      {
+        "name": "ROLE_ADMIN"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "demo-web-client",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "FFUCSXhGUofYrbKoDnSNsEgKYID46LrX",
+      "redirectUris": [
+        "http://localhost:8080/login/oauth2/code/keycloak",
+        "http://localhost:8080/*"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false
+    },
+    {
+      "clientId": "demo-api-client",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "3wyfe8Uaa6TFAPydVyq29DnLoro7wZBe",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true
+    },
+    {
+      "clientId": "demo-admin-client",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "6WROqpEYBUq125U3Q1NVQAYgKVzTrIzm",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true
+    }
+  ],
+  "users": [
+    {
+      "username": "service-account-demo-api-client",
+      "enabled": true,
+      "serviceAccountClientId": "demo-api-client",
+      "realmRoles": [
+        "default-roles-oauth2-demo"
+      ]
+    },
+    {
+      "username": "service-account-demo-admin-client",
+      "enabled": true,
+      "serviceAccountClientId": "demo-admin-client",
+      "realmRoles": [
+        "default-roles-oauth2-demo"
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "manage-users",
+          "view-users"
+        ]
+      }
+    }
+  ]
+}
