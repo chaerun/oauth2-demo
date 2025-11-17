@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+  <title layout:fragment="title" th:text="${@environment.getProperty('spring.application.name')}">Profile</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h2>User Profile</h2>
+    <p>This page is only visible to authenticated users.</p>
+    
+    <div class="card" th:if="${username}">
+      <div class="card-header">Your Details</div>
+      <div class="card-body">
+        <p><strong>Username:</strong> <span th:text="${username}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${email}"></span></p>
+        <h5>All Token Attributes:</h5>
+        <pre th:text="${attributes}"></pre>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
