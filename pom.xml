@@ -32,7 +32,18 @@
     <keycloak.version>26.0.7</keycloak.version>
     <bootstrap.version>5.3.8</bootstrap.version>
     <jquery.version>3.7.1</jquery.version>
+    <commons-io.version>2.14.0</commons-io.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
