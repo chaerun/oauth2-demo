@@ -1,0 +1,134 @@
+type: collection.insomnia.rest/5.0
+name: CHAERUN | oauth2-demo
+meta:
+  id: wrk_d6e97d2c714a44a29ae53ab4e93d710a
+  created: 1762494784855
+  modified: 1762838167484
+  description: Demo OAuth 2.0 Authorization with Spring Boot and Keycloak as an
+    Identity Provider
+collection:
+  - url: "{{ _.oauth2TokenUrl }}"
+    name: Get Access Token
+    meta:
+      id: req_07eddd40f1424f188fc5e570a9e510dd
+      created: 1762395134704
+      modified: 1763413082169
+      isPrivate: false
+      description: ""
+      sortKey: -1763382595414.5
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - name: grant_type
+          value: client_credentials
+          description: ""
+          disabled: false
+          id: pair_6a11623b5cdd4d87b4bb11dcfcdbaf94
+        - name: client_id
+          value: "{{ _.apiClientId }}"
+          description: ""
+          disabled: false
+          id: pair_f04e90cbc5224a70894df32b88e7dacc
+        - name: client_secret
+          value: "{{ _.apiClientSecret }}"
+          description: ""
+          disabled: false
+          id: pair_0666e4c626404ea49fafcae122924310
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/12.0.0
+    scripts:
+      afterResponse: |
+        const jsonBody = insomnia.response.json();
+        insomnia.environment.set('access_token', jsonBody.access_token);
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/data"
+    name: Call Protected API
+    meta:
+      id: req_829d32c6296c4180a455268aa8d97f69
+      created: 1763352244591
+      modified: 1763352306404
+      isPrivate: false
+      description: ""
+      sortKey: -1763352244591
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.0.0
+    authentication:
+      type: bearer
+      token: "{{ _.access_token }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/register"
+    name: Register User
+    meta:
+      id: req_3d69901fbc384b68800bcac631e41529
+      created: 1763412946238
+      modified: 1763413050251
+      isPrivate: false
+      description: ""
+      sortKey: -1763412946238
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "alice",
+        	"email": "alice@example.com",
+        	"firstName": "Alice",
+        	"lastName": "User",
+        	"password": "password"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.0.0
+        id: pair_1b07546fd05f46d9b01a6538e4f4baa9
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_717254c8e0cd4e2e921582b8d71b500a
+    created: 1762395134700
+    modified: 1763413101360
+environments:
+  name: Base Environment
+  meta:
+    id: env_d5a7a5f857954fce8a5c416b080e19e7
+    created: 1762395134698
+    modified: 1763413101364
+    isPrivate: false
+  data:
+    baseUrl: http://localhost:8080
+    apiClientId: demo-api-client
+    apiClientSecret: 3wyfe8Uaa6TFAPydVyq29DnLoro7wZBe
+    oauth2TokenUrl: http://localhost:9090/realms/oauth2-demo/protocol/openid-connect/token
+    oauth2RedirectUrl: http://localhost:8080/login/oauth2/code/keycloak
+    oauth2ClientId: demo-web-client
+    oauth2ClientSecret: FFUCSXhGUofYrbKoDnSNsEgKYID46LrX
+    access_token: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJLVlJVUi10ck9icFFYdTROcUk2bVVPYTRwT3hxWTl3VHRfbmFrSzJwSU8wIn0.eyJleHAiOjE3NjM0MTM0MDAsImlhdCI6MTc2MzQxMzEwMCwianRpIjoiODg3NDhiNjUtZjIwMy00ZDM5LTlkMDktZmY0ZDcyYmRhYjIzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDkwL3JlYWxtcy9vYXV0aDItZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzZTBmYjcwYi1hN2YzLTQyNGItODUxYS1jNjIzM2UyNTg3YzgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJkZW1vLWFwaS1jbGllbnQiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtb2F1dGgyLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRIb3N0IjoiMTcyLjIxLjAuMSIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1kZW1vLWFwaS1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTcyLjIxLjAuMSIsImNsaWVudF9pZCI6ImRlbW8tYXBpLWNsaWVudCJ9.asyeeEv4FCvKwBASZ9DyB-Ho5_kHGH6Ap5lDoTFcCuHUtGbt7OuDY0m0-SjOl6eVsUuCQdJpCHhPLl0qJQByUuGfVV7NoN1DAJ-lMrDR6yMtGW4h5aLNp-tsE3Mz2DcOJxcuRb7OYLIoJQsG3zq1_KKmY_tYR-13kopXFgvXGMbJYMRVanHB7kP4XvPwcgJfYungEcUgWJ7tF6QmC6-MSI6MiAmS-yG6blt4RZEByQkcMZHATRCj-Lphd755-a7HJAWObTVaO6bx7GSb9ctSy2QgfE6YfRiYoEJL8O2_f3xzWAcd3WNCUsfDtYs6H4O26c7-x_equ2jWNbuT8yG46w
