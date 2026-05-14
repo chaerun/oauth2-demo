@@ -2,7 +2,7 @@ name: oauth2-demo
 
 services:
   postgres:
-    image: postgres:latest
+    image: dhi.io/postgres:18
     container_name: keycloak-db
     restart: unless-stopped
     ports:
@@ -17,7 +17,7 @@ services:
       - keycloak-net
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.0.7
+    image: dhi.io/keycloak:26
     container_name: keycloak-app
     restart: unless-stopped
     command:
